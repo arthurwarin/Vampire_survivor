@@ -5,15 +5,18 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
     Rigidbody2D rb;
     [HideInInspector]
-    public Vector2 movDirection;
-    [HideInInspector]
     public float lastHorizontal;
     [HideInInspector]
     public float lastVertical;
+    [HideInInspector]
+    public Vector2 movDirection;
+    [HideInInspector]
+    public Vector2 lastMovedVector;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        lastMovedVector = new Vector2(1, 0f);
     }
 
     void Update()
@@ -36,11 +39,18 @@ public class PlayerMovement : MonoBehaviour
         if (movDirection.x != 0)
         {
             lastHorizontal = movDirection.x;
+            lastMovedVector = new Vector2(lastHorizontal, 0f);
         }
         
         if (movDirection.y != 0)
         {
             lastVertical = movDirection.y;
+            lastMovedVector = new Vector2(0f, lastVertical);
+        }
+
+        if (movDirection.x != 0 && movDirection.y != 0)
+        {
+            lastMovedVector = new Vector2(lastHorizontal, lastVertical);
         }
     }
     
