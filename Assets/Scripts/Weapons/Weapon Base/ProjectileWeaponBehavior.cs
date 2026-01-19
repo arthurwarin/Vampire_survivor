@@ -2,12 +2,27 @@ using UnityEngine;
 
 public class ProjectileWeaponBehavior : MonoBehaviour
 {
+    public WeaponScriptableObject weaponData;
+    
     protected Vector3 direction;
-    public float destoryAfterSeconds;
+    public float destroyAfterSeconds;
+    
+    protected float currentDamage;
+    protected float currentSpeed;
+    protected float currentCooldownDuration;
+    protected int currentPierce;
+
+    void Awake()
+    {
+        currentDamage = weaponData.Damage;
+        currentSpeed = weaponData.Speed;
+        currentCooldownDuration = weaponData.CooldownDuration;
+        currentPierce = weaponData.Pierce;
+    }
     
     protected virtual void Start()
     {
-        Destroy(gameObject, destoryAfterSeconds);
+        Destroy(gameObject, destroyAfterSeconds);
     }
 
     public void DirectionChecker(Vector3 dir)
@@ -56,5 +71,15 @@ public class ProjectileWeaponBehavior : MonoBehaviour
         }
         transform.localScale = scale;
         transform.rotation = Quaternion.Euler(rotation);
+    }
+
+    protected virtual void OnTriggerEnter2D(Collider2D  collision)
+    {
+        Debug.Log("coubeh " + collision.gameObject.name);
+        if (collision.CompareTag("Enemy"))
+        {
+            EnemyStats enemy = collision.GetComponent<EnemyStats>();
+            enemy.TakeDamage(currentDamage);
+        }
     }
 }
