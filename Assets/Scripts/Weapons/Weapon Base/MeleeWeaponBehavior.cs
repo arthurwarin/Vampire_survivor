@@ -6,14 +6,14 @@ public class MeleeWeaponBehavior : MonoBehaviour
     public WeaponScriptableObject weaponData;
     public float destroyAfterSeconds;
     
-    protected float currrentDamage;
+    protected float currentDamage;
     protected float currentSpeed;
     protected float currentCooldownDuration;
     protected float currentPierce;
 
     void Awake()
     {
-        currrentDamage = weaponData.Damage;
+        currentDamage = weaponData.Damage;
         currentSpeed = weaponData.Speed;
         currentCooldownDuration = weaponData.CooldownDuration;
         currentPierce = weaponData.Pierce;
@@ -26,10 +26,17 @@ public class MeleeWeaponBehavior : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Enemy")
+        if (collision.CompareTag("Enemy"))
         {
             EnemyStats enemy = collision.GetComponent<EnemyStats>();
-            enemy.TakeDamage(currrentDamage);
+            enemy.TakeDamage(currentDamage);
+        }
+        else if (collision.CompareTag("Prop"))
+        {
+            if (collision.gameObject.TryGetComponent(out BreakableProps breakable))
+            {
+                breakable.TakeDamage(currentDamage);
+            }
         }
     }
 }

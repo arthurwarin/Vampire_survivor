@@ -16,8 +16,16 @@ public class GarlicBehavior : MeleeWeaponBehavior
         if (collision.CompareTag("Enemy") && !markedEnemies.Contains(collision.gameObject))
         {
             EnemyStats enemy = collision.GetComponent<EnemyStats>();
-            enemy.TakeDamage(currrentDamage);
+            enemy.TakeDamage(currentDamage);
             markedEnemies.Add(collision.gameObject);
+        }
+        else if (collision.CompareTag("Prop"))
+        {
+            if (collision.gameObject.TryGetComponent(out BreakableProps breakable) && !markedEnemies.Contains(collision.gameObject))
+            {
+                breakable.TakeDamage(currentDamage);
+                markedEnemies.Add(collision.gameObject);
+            }
         }
     }
 }

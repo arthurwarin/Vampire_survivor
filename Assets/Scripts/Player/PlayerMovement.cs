@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector]
     public Vector2 lastMovedVector;
 
+    public CharacterScriptableObject characterData;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -56,6 +57,6 @@ public class PlayerMovement : MonoBehaviour
     
     void Movement()
     {
-        rb.linearVelocity = new  Vector2(movDirection.x * speed, movDirection.y * speed);
+        rb.linearVelocity = new  Vector2(movDirection.x * characterData.MoveSpeed, movDirection.y * characterData.MoveSpeed);
     }
 }
