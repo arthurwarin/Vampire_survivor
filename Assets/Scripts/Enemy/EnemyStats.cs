@@ -4,9 +4,15 @@ public class EnemyStats : MonoBehaviour
 {
     public EnemyScriptableObject enemyData;
 
-    float currentMoveSpeed;
-    float currentHealth;
-    float currentDamage;
+    [HideInInspector]
+    public float currentMoveSpeed;
+    [HideInInspector]
+    public float currentHealth;
+    [HideInInspector]
+    public float currentDamage;
+
+    public float despawnDistance = 20f;
+    Transform player;
 
     void Awake()
     {
@@ -15,6 +21,19 @@ public class EnemyStats : MonoBehaviour
         currentHealth = enemyData.MaxHealth;
     }
 
+    void Start()
+    {
+        player = FindAnyObjectByType<PlayerStats>().transform;
+    }
+
+    void Update()
+    {
+        if (Vector2.Distance(transform.position, player.position) >= despawnDistance)
+        {
+            ReturnEnemy();
+        }
+    }
+    
     public void TakeDamage(float dmg)
     {
         currentHealth -= dmg;
@@ -38,4 +57,17 @@ public class EnemyStats : MonoBehaviour
             player.TakeDamage(currentDamage);
         }
     }
+
+    private void OnDestroy()
+    {
+        EnemySpawner es = FindAnyObjectByType<EnemySpawner>();
+        es.OnEnemyKilled();
+    }
+
+    void ReturnEnemy()
+    {
+        EnemySpawner es = FindAnyObjectByType<EnemySpawner>();
+        transform.position = player.position + es.relativeSpawnPoints[Random.Range(0, es.relativeSpawnPoints.Count)].position;
+    }
+    
 }

@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 1002925317987603851}
   - component: {fileID: 8246101141037899080}
   - component: {fileID: 6019387819840313435}
-  - component: {fileID: -8229822050752134183}
-  - component: {fileID: 3656106318961308791}
+  - component: {fileID: -5267612455441365899}
+  - component: {fileID: 6859210191840451371}
   m_Layer: 0
-  m_Name: Bat
+  m_Name: Red bat
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 330315222, guid: 89796041f8a54eb49b237182fcc31c1e, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.02849722, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -141,12 +141,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f9b2b266b075d04d98688439112c623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
-  enemyData: {fileID: 11400000, guid: 1832efc8e40244a4084abccc5de27654, type: 2}
+  enemyData: {fileID: 11400000, guid: b143bc1b4efcc2f42ab5e2694c36d1ea, type: 2}
   currentMoveSpeed: 0
   currentHealth: 0
   currentDamage: 0
   despawnDistance: 20
---- !u!114 &-8229822050752134183
+--- !u!114 &-5267612455441365899
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,10 +159,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DropRateManager
   drops:
-  - name: Blue Gem
+  - name: Blue gem
     itemPrefab: {fileID: 7684290841444167594, guid: da2d4efa4d4d4d74fb6ea2c30303dac0, type: 3}
     dropRate: 50
---- !u!61 &3656106318961308791
+--- !u!61 &6859210191840451371
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
