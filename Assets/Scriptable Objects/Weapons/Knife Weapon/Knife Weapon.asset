@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b9d5d2a4c6be2b40974a95b6698efa9, type: 3}
-  m_Name: Garlic Weapon
+  m_Name: Knife Weapon
   m_EditorClassIdentifier: Assembly-CSharp::WeaponScriptableObject
-  prefab: {fileID: 5007199564088056788, guid: 520126dddb64cb6469a632fcc51d0eb7, type: 3}
+  prefab: {fileID: 5291338777161729536, guid: a211a62dbd02bdc45be34f998b375d2a, type: 3}
   damage: 5
-  speed: 0
-  cooldownDuration: 4
-  pierce: 0
+  speed: 10
+  cooldownDuration: 2
+  pierce: 1
+  level: 1
+  nextLevelPrefab: {fileID: 5098134002722280532, guid: 630846663b32c2f47abbc294b5b39348, type: 3}

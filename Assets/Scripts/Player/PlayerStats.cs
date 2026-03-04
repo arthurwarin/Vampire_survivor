@@ -20,8 +20,6 @@ public class PlayerStats : MonoBehaviour
     public float currentProjectileSpeed;
     [HideInInspector]
     public float currentMagnet;
-    
-    public List<GameObject> spawnedWeapons;
 
     [Header("Experience/Level")]
     public int experience = 0;
@@ -42,11 +40,20 @@ public class PlayerStats : MonoBehaviour
     bool isInvincible;
     
     public List<LevelRange> levelRanges;
+
+    InventoryManager inventory;
+    public int weaponIndex;
+    public int passiveItemIndex;
+    
+    public GameObject firstPassiveItem, secondPassiveItem;
+    public GameObject testWeapon;
     
     void Awake()
     {
         characterData = CharacterSelector.Getdata();
         CharacterSelector.instance.DestroySingleton();
+        
+        inventory = GetComponent<InventoryManager>();
         
         currentHealth = characterData.MaxHealth;
         currentRecovery = characterData.Recovery;
@@ -56,6 +63,9 @@ public class PlayerStats : MonoBehaviour
         currentMagnet = characterData.Magnet;
         
         SpawnWeapon(characterData.StartingWeapon);
+        SpawnWeapon(testWeapon);
+        SpawnPassiveItem(firstPassiveItem);
+        SpawnPassiveItem(secondPassiveItem);
     }
 
     void Start()
@@ -150,8 +160,31 @@ public class PlayerStats : MonoBehaviour
 
     public void SpawnWeapon(GameObject weapon)
     {
+        if (weaponIndex >= inventory.weaponSlots.Count - 1)
+        {
+            Debug.LogError("Inventory slots already full");
+            return;
+        }
+        
         GameObject spawnedWeapon = Instantiate(weapon, transform.position, Quaternion.identity);
         spawnedWeapon.transform.SetParent(transform);
-        spawnedWeapons.Add(spawnedWeapon);
+        inventory.AddWeapon(weaponIndex, spawnedWeapon.GetComponent<WeaponController>());
+
+        weaponIndex++;
+    }
+    
+    public void SpawnPassiveItem(GameObject passiveItem)
+    {
+        if (passiveItemIndex >= inventory.passiveItemSlots.Count - 1)
+        {
+            Debug.LogError("Inventory slots already full");
+            return;
+        }
+        
+        GameObject spawnedPassiveItem = Instantiate(passiveItem, transform.position, Quaternion.identity);
+        spawnedPassiveItem.transform.SetParent(transform);
+        inventory.AddPassiveItem(passiveItemIndex, spawnedPassiveItem.GetComponent<PassiveItem>());
+
+        passiveItemIndex++;
     }
 }
