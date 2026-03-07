@@ -15,7 +15,7 @@ MonoBehaviour:
   icon: {fileID: 3934776110834691092, guid: 6303a30f79744c047b3474540bcee9a3, type: 3}
   name: Garlic Character
   startingWeapon: {fileID: 6618080706592750488, guid: c40a0703b3106464ebcc043db93e0088, type: 3}
-  maxHealth: 10
+  maxHealth: 200
   recovery: 1
   moveSpeed: 5
   might: 1
